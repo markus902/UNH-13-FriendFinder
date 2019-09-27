@@ -1,5 +1,8 @@
 var express = require("express");
 var path = require("path");
+var profiles = require("./app/friends.js");
+// var htmlRoutes = require("./routing/htmlRoutes.js");
+// var apiRoutes = require("apiRoutes.js")
 
 var app = express();
 var PORT = 3000;
@@ -23,24 +26,27 @@ var darthmaul = {
     forcePoints: 1200
 };
 
-
 // Routes
 // ===========================================================
-app.get("/", function (req, res) {
+app.get("/home", function (req, res) {
     res.sendFile(path.join(__dirname, "public/home.html"));
-    console.log("server runs")
+    console.log("server runs");
+});
+app.get("/survey", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/survey.html"));
+    console.log("server runs");
 });
 
-app.get("/yoda", function (req, res) {
-    res.json(yoda);
+app.post("/api/friends", function (req, res) {
+    console.log("server runs");
+    var newProfile = req.body;
+    profiles.push(newProfile);
+    res.json(newProfile);
 });
-
-app.get("/darthmaul", function (req, res) {
-    res.json(darthmaul);
+app.get("/api/friends", function (req, res) {
+    console.log("server runs");
+    res.json(profiles[0]);
 });
-
-
-
 
 // Listener
 // ===========================================================
