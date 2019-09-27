@@ -15,14 +15,3 @@ var profiles = [{
 }];
 
 module.exports = profiles;
-
-// Like fast food
-// argues a lot
-// Money is important
-// I like vounteering
-// I wanna have kids
-// I like to travel
-// Family is important for me
-// I love home depot
-// dancing
-// I love shopping
