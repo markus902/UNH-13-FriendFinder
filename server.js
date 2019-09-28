@@ -1,7 +1,7 @@
 var express = require("express");
 var path = require("path");
 var profiles = require("./app/friends.js");
-// var htmlRoutes = require("./routing/htmlRoutes.js");
+var htmlRoutes = require("./routing/htmlRoutes.js");
 // var apiRoutes = require("apiRoutes.js")
 
 var app = express();
@@ -12,41 +12,33 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
-var yoda = {
-    name: "Yoda",
-    role: "Jedi Master",
-    age: 900,
-    forcePoints: 2000
-};
-
-var darthmaul = {
-    name: "Darth Maul",
-    role: "Sith Lord",
-    age: 200,
-    forcePoints: 1200
-};
+app.use(express.static("public"));
 
 // Routes
 // ===========================================================
-app.get("/home", function (req, res) {
-    res.sendFile(path.join(__dirname, "public/home.html"));
-    console.log("server runs");
-});
-app.get("/survey", function (req, res) {
-    res.sendFile(path.join(__dirname, "public/survey.html"));
-    console.log("server runs");
-});
 
-app.post("/api/friends", function (req, res) {
-    console.log("server runs");
-    var newProfile = req.body;
-    profiles.push(newProfile);
-    res.json(newProfile);
-});
-app.get("/api/friends", function (req, res) {
-    console.log("server runs");
-    res.json(profiles[0]);
-});
+require("./routing/apiRoutes")(app);
+require("./routing/htmlRoutes")(app);
+
+// app.get("/", function (req, res) {
+//     res.sendFile(path.join(__dirname, "public/home.html"));
+//     console.log("server runs");
+// });
+// app.get("/survey", function (req, res) {
+//     res.sendFile(path.join(__dirname, "public/survey.html"));
+//     console.log("server runs");
+// });
+
+// app.post("/api/friends", function (req, res) {
+//     console.log("server runs");
+//     var newProfile = req.body;
+//     profiles.push(newProfile);
+//     res.json(newProfile);
+// });
+// app.get("/api/friends", function (req, res) {
+//     console.log("server runs");
+//     res.json(profiles[0]);
+// });
 
 // Listener
 // ===========================================================
