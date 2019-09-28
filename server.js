@@ -20,26 +20,6 @@ app.use(express.static("public"));
 require("./routing/apiRoutes")(app);
 require("./routing/htmlRoutes")(app);
 
-// app.get("/", function (req, res) {
-//     res.sendFile(path.join(__dirname, "public/home.html"));
-//     console.log("server runs");
-// });
-// app.get("/survey", function (req, res) {
-//     res.sendFile(path.join(__dirname, "public/survey.html"));
-//     console.log("server runs");
-// });
-
-// app.post("/api/friends", function (req, res) {
-//     console.log("server runs");
-//     var newProfile = req.body;
-//     profiles.push(newProfile);
-//     res.json(newProfile);
-// });
-// app.get("/api/friends", function (req, res) {
-//     console.log("server runs");
-//     res.json(profiles[0]);
-// });
-
 // Listener
 // ===========================================================
 app.listen(PORT, function () {
