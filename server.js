@@ -1,6 +1,6 @@
 var express = require("express");
 var path = require("path");
-var profiles = require("./app/friends.js");
+var profiles = require("./data/friends.js");
 var htmlRoutes = require("./routing/htmlRoutes.js");
 // var apiRoutes = require("apiRoutes.js")
 
@@ -11,7 +11,6 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json());
-
 app.use(express.static("public"));
 
 // Routes
