@@ -2,6 +2,8 @@ let questions = ["I am arguing over everything.", "I go crazy over fast food", "
     "Kids are the greatest and I want to have many.", "I love to travel.", "Family is my home base.",
     "If I have nothing to do, I go to home depot.", "Secretly I love to dance.", "Shopping? Let's go."
 ];
+let result;
+let answers = []
 
 $(document).ready(function () {
 
@@ -15,16 +17,32 @@ $(document).ready(function () {
         $(`#question${i}`).after(newSelect);
         for (j = 0; j < 11; j++) {
             let newOption = $("<option>");
-            let disabledOption = $("<option disabled selected>Choose your option</option>");
+            // let disabledOption = $("<option disabled selected>Choose your option</option>");
             if (j == 0) {
-                $(`#select${i}`).append(disabledOption);
+                // $(`#select${i}`).append(disabledOption);
+            } else {
+                newOption.attr("value", j).text(j);
+                $(`#select${i}`).append(newOption);
             }
-            newOption.attr("value", j).text(j);
-            $(`#select${i}`).append(newOption);
         }
     }
 });
 
+$('#submit').on("click", function (event) {
+    event.preventDefault();
+
+    for (i = 0; i < questions.length; i++) {
+        answers.push($(`#select${i}`).val());
+    }
+
+    result = {
+        query: answers
+    };
+    $.post("/api/friends", result, function (data) {
+        console.log("You submitted!");
+        console.log(data.friend.name);
+    });
+});
 
 
 /* <div class="input-field col s12">

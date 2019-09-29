@@ -1,0 +1,3 @@
+answers = [];
+
+module.exports = answers;
