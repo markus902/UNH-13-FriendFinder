@@ -5,7 +5,7 @@ var htmlRoutes = require("./routing/htmlRoutes.js");
 // var apiRoutes = require("apiRoutes.js")
 
 var app = express();
-var PORT = 8080;
+var PORT = process.env.PORT || 3000
 
 app.use(express.urlencoded({
     extended: true
@@ -22,5 +22,5 @@ require("./routing/htmlRoutes")(app);
 // Listener
 // ===========================================================
 app.listen(PORT, function () {
-    console.log("App listening on PORT " + PORT);
+    console.log(`App listening on PORT " ${ PORT }`);
 });
