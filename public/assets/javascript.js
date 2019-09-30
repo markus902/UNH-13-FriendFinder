@@ -1,59 +1,76 @@
-let questions = ["I am arguing over everything.", "I go crazy over fast food", "Money is the most important thing for me.", "I love to volunteer",
+let questions = ["I am arguing over everything.", "I go crazy over fast food.", "Money is the most important thing for me.", "I love to volunteer.",
     "Kids are the greatest and I want to have many.", "I love to travel.", "Family is my home base.",
     "If I have nothing to do, I go to home depot.", "Secretly I love to dance.", "Shopping? Let's go."
 ];
-let result;
-let answers = []
 
 $(document).ready(function () {
+
+    $('select').formSelect();
+
+    $('select').on('contentChanged', function () {
+        $(this).material_select();
+    });
 
     for (i = 0; i < questions.length; i++) {
         let newQuestion = $('<p>');
         let newSelect = $('<select>');
+        let newDiv = $("<div>");
+        // let newLabel = $('<label>');
 
         newQuestion.attr('id', `question${i}`).text(questions[i]);
-        newSelect.attr("type", "text").attr("id", `select${i}`);
-        $(`#form`).append(newQuestion);
-        $(`#question${i}`).after(newSelect);
+        newDiv.addClass("input-field col s12").attr("id", `input${i}`);
+        newSelect.attr("id", `select${i}`);
+        // newLabel.text("Testlabel");
+
+        $(`#selects`).append(newQuestion).append(newDiv);
+        $(`#question${i}`).append(newDiv);
+        $(`#input${i}`).append(newSelect);
         for (j = 0; j < 11; j++) {
             let newOption = $("<option>");
-            // let disabledOption = $("<option disabled selected>Choose your option</option>");
+            let disabledOption = $("<option disabled selected>Select</option>");
             if (j == 0) {
-                // $(`#select${i}`).append(disabledOption);
+                $(`#select${i}`).append(disabledOption);
             } else {
                 newOption.attr("value", j).text(j);
                 $(`#select${i}`).append(newOption);
             }
         }
     }
-});
 
-$('#submit').on("click", function (event) {
-    event.preventDefault();
+    $("#back").on('click', () => {
+        $(".banner").hide();
+        $(".headline").show();
+    });
 
-    for (i = 0; i < questions.length; i++) {
-        answers.push($(`#select${i}`).val());
-    }
+    $('#submit').on("click", function (event) {
+        event.preventDefault();
 
-    result = {
-        query: answers
-    };
-    $.post("/api/friends", result, function (data) {
-        console.log("You submitted!");
-        console.log(data.friend.name);
+        let answers = [];
+        let result = 0;
+
+        for (i = 0; i < questions.length; i++) {
+            answers.push($(`#select${i}`).val());
+        }
+
+        result = {
+            query: answers
+        };
+        $.post("/api/friends", result, function (data) {
+            console.log("You submitted!");
+            console.log(result);
+            console.log(data.friend.name);
+            $("#resultName").text(data.friend.name);
+            $("#resultImage").attr("src", data.friend.photo);
+            $(".banner").show();
+            $(".headline").hide();
+            window.scrollTo(0, 0);
+        });
     });
 });
 
 
-/* <div class="input-field col s12">
-<select>
-  <option value="" disabled selected>Choose your option</option>
-  <option value="1">Option 1</option>
-  <option value="2">Option 2</option>
-  <option value="3">Option 3</option>
-</select>
-<label>Materialize Select</label>
-</div> */
+
+
 
 
 // Like fast food
