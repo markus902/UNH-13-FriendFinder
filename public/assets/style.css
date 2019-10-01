@@ -25,3 +25,9 @@ p {
     position: fixed;
     z-index: 3;
 }
+
+#resultImage {
+    width: 60%;
+    height: auto;
+    display: inline;
+}
